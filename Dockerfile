@@ -1,14 +1,10 @@
 
-FROM ubuntu:22.04
+FROM python:3.12-slim
 
-RUN apt update -y && apt install -y nano && apt install -y nginx
+COPY . .
 
-EXPOSE 80/tcp
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["nginx"]
+EXPOSE 8000
 
-RUN docker build -t ubuntu_nginx:1.0.0 .
-
-RUN docker run -it -rm ubuntu_nginx:1.0.0
-
-# run nginx in browser ?
+CMD ["python", "main.py"]
